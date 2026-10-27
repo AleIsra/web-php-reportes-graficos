@@ -1,0 +1,14 @@
+!/**
+ * Highstock JS v13.1.1 (2026-09-20)
+ * @module highcharts/indicators/disparity-index
+ * @requires highcharts
+ * @requires highcharts/modules/stock
+ *
+ * Indicator series type for Highstock
+ *
+ * (c) 2010-2026 Highsoft AS
+ * Author: Rafał Sebestjański
+ *
+ * A commercial license may be required depending on use,
+ * see www.highcharts.com/license
+ */function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e(t._Highcharts.SeriesRegistry,t._Highcharts):"function"==typeof define&&define.amd?define("highcharts/indicators/disparity-index",["highcharts/highcharts"],function(t){return e(t.SeriesRegistry,t)}):"object"==typeof exports?exports["highcharts/indicators/disparity-index"]=e(t._Highcharts.SeriesRegistry,t._Highcharts):t.Highcharts=e(t.Highcharts.SeriesRegistry,t.Highcharts)}("u"<typeof window?this:window,function(t,e){var r={512:function(e){"use strict";e.exports=t},944:function(t){"use strict";t.exports=e}},n={};function i(t){var e=n[t];if(void 0!==e)return e.exports;var a=n[t]={exports:{}};return r[t](a,a.exports,i),a.exports}i.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return i.d(e,{a:e}),e},i.d=function(t,e){for(var r in e)i.o(e,r)&&!i.o(t,r)&&Object.defineProperty(t,r,{enumerable:!0,get:e[r]})},i.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)};var a={};return!function(){"use strict";i.d(a,{default:function(){return c}});var t,e=i(944),r=i.n(e),n=i(512),o=i.n(n),s=(t=function(e,r){return(t=Object.setPrototypeOf||({__proto__:[]})instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var r in e)e.hasOwnProperty(r)&&(t[r]=e[r])})(e,r)},function(e,r){function n(){this.constructor=e}t(e,r),e.prototype=null===r?Object.create(r):(n.prototype=r.prototype,new n)}),p=o().seriesTypes.sma,u=function(t){function r(){return null!==t&&t.apply(this,arguments)||this}return s(r,t),r.prototype.init=function(){var t=arguments,e=t[1].params,r=e&&e.average?e.average:void 0;this.averageIndicator=o().seriesTypes[r]||p,this.averageIndicator.prototype.init.apply(this,t)},r.prototype.calculateDisparityIndex=function(t,r){return(0,e.correctFloat)(t-r)/r*100},r.prototype.getValues=function(t,r){var n=r.index,i=t.xData,a=t.yData,o=a?a.length:0,s=[],p=[],u=[],c=this.averageIndicator,f=(0,e.isArray)(a[0]),d=c.prototype.getValues(t,r),h=d.yData,y=i.indexOf(d.xData[0]);if(h&&0!==h.length&&(0,e.defined)(n)&&!(a.length<=y)){for(var g=y;g<o;g++){var l=this.calculateDisparityIndex(f?a[g][n]:a[g],h[g-y]);s.push([i[g],l]),p.push(i[g]),u.push(l)}return{values:s,xData:p,yData:u}}},r.defaultOptions=(0,e.merge)(p.defaultOptions,{params:{average:"sma",index:3},marker:{enabled:!1},dataGrouping:{approximation:"averages"}}),r}(p);(0,e.extend)(u.prototype,{nameBase:"Disparity Index",nameComponents:["period","average"]}),o().registerSeriesType("disparityindex",u);var c=r()}(),a=a.default});

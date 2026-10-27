@@ -1,0 +1,368 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Highcharts Example</title>
+
+		<style type="text/css">
+:root {
+    color-scheme: light dark;
+}
+body {
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        sans-serif;
+    background: var(--highcharts-background-color);
+    color: var(--highcharts-neutral-color-100);
+}
+
+.highcharts-figure #container {
+    min-width: 320px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.highcharts-figure {
+    min-width: 310px;
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+.highcharts-description {
+    background: light-dark(#f2f6f2, #323232);
+    border-radius: 0 4px 4px 0;
+    border-left: 2px solid light-dark(#1d6aff, #fff);
+    font-size: 0.8rem;
+    font-style: italic;
+    padding: 8px 16px;
+    margin: 2em 10px 1em;
+}
+
+.violin-tooltip-header {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.violin-tooltip-table {
+    margin-top: 8px;
+    border-collapse: collapse;
+    width: 100%;
+
+    th {
+        padding-right: 15px;
+        color: var(--highcharts-neutral-color-60, #666);
+    }
+
+    td {
+        font-family: monospace;
+        text-align: right;
+    }
+
+    .median-row th,
+    .median-row td {
+        font-weight: bold;
+        color: var(--highcharts-neutral-color-100, #000);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #141414;
+        color: #ddd;
+    }
+    a {
+        color: #2caffe;
+    }
+}
+		</style>
+	</head>
+	<body>
+<script src="../../code/highcharts.js"></script>
+<script src="../../code/highcharts-more.js"></script>
+<script src="../../code/modules/exporting.js"></script>
+<script src="../../code/modules/data.js"></script>
+<script src="../../code/modules/accessibility.js"></script>
+<script src="../../code/themes/adaptive.js"></script>
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+        A violin plot showing the height distribution of female athletes at the
+        2024 Olympics across seven sports. The plot features a density shape for
+        each sport, overlaid with statistical markers indicating the minimum,
+        first quartile, median, third quartile, and maximum heights. The demo
+        also includes the math required to calculate the density shapes and the
+        five-number summary from the raw data.
+    </p>
+</figure>
+
+
+
+		<script type="text/javascript">
+/* eslint-disable */
+const dataURL = 'https://cdn.jsdelivr.net/gh/highcharts/highcharts@ef9afb0d0/samples/data/olympic-female-heights-2024.csv';
+
+// Render the violin plot out of multiple polygon series (the density shapes)
+// and a boxplot series (the five-number summary)
+function renderChart(categories, series) {
+  Highcharts.chart('container', {
+    chart: {
+      type: 'polygon',
+      spacingBottom: 30
+    },
+    accessibility: {
+      description: 'A violin plot showing the height distribution of female ' + 'athletes at the 2024 Olympics across multiple sports. The ' + 'plot features a density shape for each sport, overlaid ' + 'with statistical markers indicating the minimum, first ' + 'quartile, median, third quartile, and maximum heights.'
+    },
+    title: {
+      text: 'Height distribution of female athletes at the 2024 Olympics'
+    },
+    xAxis: {
+      categories,
+      lineWidth: 0,
+      // Highlight the hovered category
+      crosshair: true
+    },
+    yAxis: {
+      title: {
+        text: null
+      },
+      gridLineDashStyle: 'Dash',
+      labels: {
+        format: '{value} cm',
+        style: {
+          fontSize: '10px'
+        }
+      },
+      startOnTick: false,
+      endOnTick: false
+    },
+    legend: {
+      enabled: false
+    },
+    tooltip: {
+      useHTML: true,
+      padding: 12,
+      // Since the polygon series have disabled mouse tracking, the
+      // tooltip is only triggered by the boxplot points.
+      format: `
+                <div class="violin-tooltip">
+                    <span class="violin-tooltip-header"
+                        style="color: var(--highcharts-color-{point.index})">
+                        {point.name}
+                    </span>
+                    <table class="violin-tooltip-table">
+                        <tr>
+                            <th>Max:</th>
+                            <td>{high:.0f} cm</td>
+                        </tr>
+                        <tr>
+                            <th>Q3:</th>
+                            <td>{q3:.0f} cm</td>
+                        </tr>
+                        <tr class="median-row">
+                            <th>Median:</th>
+                            <td>{median:.0f} cm</td>
+                        </tr>
+                        <tr>
+                            <th>Q1:</th>
+                            <td>{q1:.0f} cm</td>
+                        </tr>
+                        <tr>
+                            <th>Min:</th>
+                            <td>{low:.0f} cm</td>
+                        </tr>
+                    </table>
+                </div>
+            `,
+      shared: true
+    },
+    plotOptions: {
+      series: {
+        states: {
+          inactive: {
+            enabled: false
+          }
+        }
+      },
+      polygon: {
+        enableMouseTracking: false,
+        fillOpacity: 0.5,
+        marker: {
+          enabled: false
+        },
+        lineWidth: 1
+      },
+      boxplot: {
+        pointWidth: 8,
+        color: '#333',
+        fillColor: '#333',
+        medianColor: '#fff',
+        borderRadius: 4
+      }
+    },
+    series
+  });
+}
+
+// Math helpers
+const mathUtils = {
+  quantile: (sortedValues, q) => {
+    const pos = (sortedValues.length - 1) * q,
+      base = Math.floor(pos),
+      rest = pos - base;
+    if (sortedValues[base + 1] === undefined) {
+      return sortedValues[base];
+    }
+    return sortedValues[base] + rest * (sortedValues[base + 1] - sortedValues[base]);
+  },
+  stdDev: arr => {
+    const mean = arr.reduce((a, b) => a + b) / arr.length;
+    return Math.sqrt(arr.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / arr.length);
+  },
+  gaussian: u => 1 / Math.sqrt(2 * Math.PI) * Math.exp(-0.5 * u * u)
+};
+
+// Generate the kernel density estimate (the violin shape) and the
+// five-number summary for each category.
+function generateViolinData(step, sortedDataArrays) {
+  let globalMin = Infinity,
+    globalMax = -Infinity;
+  const stats = [];
+  sortedDataArrays.forEach(sortedValues => {
+    if (!sortedValues.length) {
+      return;
+    }
+    const min = sortedValues[0],
+      max = sortedValues[sortedValues.length - 1];
+    if (min < globalMin) {
+      globalMin = min;
+    }
+    if (max > globalMax) {
+      globalMax = max;
+    }
+    stats.push([min, mathUtils.quantile(sortedValues, 0.25), mathUtils.quantile(sortedValues, 0.50), mathUtils.quantile(sortedValues, 0.75), max]);
+  });
+
+  // Add a little breathing room so the violins narrow out to 0.
+  globalMin = Math.floor(globalMin) - 10;
+  globalMax = Math.ceil(globalMax) + 10;
+  const xiData = [];
+  for (let i = globalMin; i <= globalMax; i += step) {
+    xiData.push(i);
+  }
+  const results = [];
+  let maxDensity = 0;
+  sortedDataArrays.forEach(sortedValues => {
+    if (!sortedValues.length) {
+      results.push([]);
+      return;
+    }
+    const bandwidth = Math.max(1.06 * mathUtils.stdDev(sortedValues) * Math.pow(sortedValues.length, -0.2), step * 2);
+    const seriesData = [];
+    xiData.forEach(x => {
+      let sum = 0;
+      for (let i = 0; i < sortedValues.length; i++) {
+        sum += mathUtils.gaussian((x - sortedValues[i]) / bandwidth);
+      }
+      const y = 1 / (sortedValues.length * bandwidth) * sum;
+      if (y > maxDensity) {
+        maxDensity = y;
+      }
+      seriesData.push([-y, y]);
+    });
+    results.push(seriesData);
+  });
+
+  // Normalize the density values. 0.4 is the maximum half-width extending
+  // from the center line, so violins in adjacent categories (spaced by 1)
+  // keep a 0.2 gap between them.
+  const scale = 0.4 / (maxDensity || 1);
+  const scaledResults = results.map((series, index) => series.map(point => [point[0] * scale + index, point[1] * scale + index]));
+  return {
+    xiData,
+    results: scaledResults,
+    stats
+  };
+}
+
+// Group the parsed CSV by sport, build the series, and render the chart.
+function processData(dataTable) {
+  const sports = dataTable.getColumn('sport'),
+    heights = dataTable.getColumn('height'),
+    groupedData = {};
+  for (let i = 0; i < sports.length; i++) {
+    const sport = sports[i],
+      height = Number(heights[i]);
+    if (sport && height) {
+      const ucSport = sport.charAt(0).toUpperCase() + sport.slice(1);
+      if (!groupedData[ucSport]) {
+        groupedData[ucSport] = [];
+      }
+      groupedData[ucSport].push(height);
+    }
+  }
+  const categories = Object.keys(groupedData),
+    sortedDataArrays = categories.map(sport => groupedData[sport].slice().sort((a, b) => a - b)),
+    data = generateViolinData(1, sortedDataArrays),
+    xi = data.xiData,
+    stats = data.stats;
+
+  // One polygon per sport, tracing the right side up then the left side down
+  const polygonSeries = categories.map((sport, i) => {
+    const rightSide = xi.map((y, j) => [data.results[i][j][1], y]),
+      leftSide = xi.map((y, j) => [data.results[i][j][0], y]).reverse();
+    return {
+      type: 'polygon',
+      name: sport,
+      data: [...rightSide, ...leftSide],
+      custom: {
+        stat: stats[i]
+      }
+    };
+  });
+
+  // One boxplot point per sport
+  const boxplotSeries = {
+    type: 'boxplot',
+    name: 'Statistics',
+    data: categories.map((sport, i) => ({
+      x: i,
+      low: stats[i][0],
+      q1: stats[i][1],
+      median: stats[i][2],
+      q3: stats[i][3],
+      high: stats[i][4],
+      name: sport
+    }))
+  };
+  return {
+    categories,
+    polygonSeries,
+    boxplotSeries
+  };
+}
+
+// Load the local CSV data and parse it with the Data module.
+fetch(dataURL).then(response => response.text()).then(csv => {
+  const dataTable = new Highcharts.Data({
+    csv
+  }).getDataTable();
+  const {
+    categories,
+    polygonSeries,
+    boxplotSeries
+  } = processData(dataTable);
+  renderChart(categories, [...polygonSeries, boxplotSeries]);
+});
+		</script>
+	</body>
+</html>

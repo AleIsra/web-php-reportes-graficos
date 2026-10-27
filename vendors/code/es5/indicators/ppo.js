@@ -1,0 +1,14 @@
+!/**
+ * Highstock JS v13.1.1 (2026-09-20)
+ * @module highcharts/indicators/ppo
+ * @requires highcharts
+ * @requires highcharts/modules/stock
+ *
+ * Indicator series type for Highcharts Stock
+ *
+ * (c) 2010-2026 Highsoft AS
+ * Author: Wojciech Chmiel
+ *
+ * A commercial license may be required depending on use,
+ * see www.highcharts.com/license
+ */function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e(t._Highcharts.SeriesRegistry,t._Highcharts):"function"==typeof define&&define.amd?define("highcharts/indicators/ppo",["highcharts/highcharts"],function(t){return e(t.SeriesRegistry,t)}):"object"==typeof exports?exports["highcharts/indicators/ppo"]=e(t._Highcharts.SeriesRegistry,t._Highcharts):t.Highcharts=e(t.Highcharts.SeriesRegistry,t.Highcharts)}("u"<typeof window?this:window,function(t,e){var r={512:function(e){"use strict";e.exports=t},944:function(t){"use strict";t.exports=e}},o={};function n(t){var e=o[t];if(void 0!==e)return e.exports;var i=o[t]={exports:{}};return r[t](i,i.exports,n),i.exports}n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,{a:e}),e},n.d=function(t,e){for(var r in e)n.o(e,r)&&!n.o(t,r)&&Object.defineProperty(t,r,{enumerable:!0,get:e[r]})},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)};var i={};return!function(){"use strict";n.d(i,{default:function(){return c}});var t,e=n(944),r=n.n(e),o=n(512),s=n.n(o),a=(t=function(e,r){return(t=Object.setPrototypeOf||({__proto__:[]})instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var r in e)e.hasOwnProperty(r)&&(t[r]=e[r])})(e,r)},function(e,r){function o(){this.constructor=e}t(e,r),e.prototype=null===r?Object.create(r):(o.prototype=r.prototype,new o)}),p=s().seriesTypes.ema,u=function(t){function r(){return null!==t&&t.apply(this,arguments)||this}return a(r,t),r.prototype.getValues=function(r,o){var n,i,s=o.periods,a=o.index,p=[],u=[],c=[];if(2!==s.length||s[1]<=s[0])return void(0,e.error)('Error: "PPO requires two periods. Notice, first period should be lower than the second one."');var f=t.prototype.getValues.call(this,r,{index:a,period:s[0]}),h=t.prototype.getValues.call(this,r,{index:a,period:s[1]});if(f&&h){var d=s[1]-s[0];for(i=0;i<h.yData.length;i++)n=(0,e.correctFloat)((f.yData[i+d]-h.yData[i])/h.yData[i]*100),p.push([h.xData[i],n]),u.push(h.xData[i]),c.push(n);return{values:p,xData:u,yData:c}}},r.defaultOptions=(0,e.merge)(p.defaultOptions,{params:{period:void 0,periods:[12,26]}}),r}(p);(0,e.extend)(u.prototype,{nameBase:"PPO",nameComponents:["periods"]}),s().registerSeriesType("ppo",u);var c=r()}(),i=i.default});

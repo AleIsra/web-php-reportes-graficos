@@ -1,0 +1,14 @@
+!/**
+ * Highstock JS v13.1.1 (2026-09-20)
+ * @module highcharts/indicators/zigzag
+ * @requires highcharts
+ * @requires highcharts/modules/stock
+ *
+ * Indicator series type for Highcharts Stock
+ *
+ * (c) 2010-2026 Highsoft AS
+ * Author: Kacper Madej
+ *
+ * A commercial license may be required depending on use,
+ * see www.highcharts.com/license
+ */function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e(t._Highcharts.SeriesRegistry,t._Highcharts):"function"==typeof define&&define.amd?define("highcharts/indicators/zigzag",["highcharts/highcharts"],function(t){return e(t.SeriesRegistry,t)}):"object"==typeof exports?exports["highcharts/indicators/zigzag"]=e(t._Highcharts.SeriesRegistry,t._Highcharts):t.Highcharts=e(t.Highcharts.SeriesRegistry,t.Highcharts)}("u"<typeof window?this:window,function(t,e){var r={512:function(e){"use strict";e.exports=t},944:function(t){"use strict";t.exports=e}},n={};function o(t){var e=n[t];if(void 0!==e)return e.exports;var i=n[t]={exports:{}};return r[t](i,i.exports,o),i.exports}o.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return o.d(e,{a:e}),e},o.d=function(t,e){for(var r in e)o.o(e,r)&&!o.o(t,r)&&Object.defineProperty(t,r,{enumerable:!0,get:e[r]})},o.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)};var i={};return!function(){"use strict";o.d(i,{default:function(){return p}});var t,e=o(944),r=o.n(e),n=o(512),s=o.n(n),a=(t=function(e,r){return(t=Object.setPrototypeOf||({__proto__:[]})instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var r in e)e.hasOwnProperty(r)&&(t[r]=e[r])})(e,r)},function(e,r){function n(){this.constructor=e}t(e,r),e.prototype=null===r?Object.create(r):(n.prototype=r.prototype,new n)}),u=s().seriesTypes.sma,h=function(t){function r(){return null!==t&&t.apply(this,arguments)||this}return a(r,t),r.prototype.getValues=function(t,e){var r,n,o,i,s=e.lowIndex,a=e.highIndex,u=e.deviation/100,h={low:1+u,high:1-u},p=t.xData,c=t.yData,f=c?c.length:0,d=[],g=[],l=[],y=!1,v=!1;if(p&&!(p.length<=1)&&(!f||void 0!==c[0][s]&&void 0!==c[0][a])){var x=c[0][s],_=c[0][a];for(r=1;r<f;r++)c[r][s]<=_*h.high?(d.push([p[0],_]),o=[p[r],c[r][s]],i=!0,y=!0):c[r][a]>=x*h.low&&(d.push([p[0],x]),o=[p[r],c[r][a]],i=!1,y=!0),y&&(g.push(d[0][0]),l.push(d[0][1]),n=r++,r=f);for(r=n;r<f;r++)i?(c[r][s]<=o[1]&&(o=[p[r],c[r][s]]),c[r][a]>=o[1]*h.low&&(v=a)):(c[r][a]>=o[1]&&(o=[p[r],c[r][a]]),c[r][s]<=o[1]*h.high&&(v=s)),!1!==v&&(d.push(o),g.push(o[0]),l.push(o[1]),o=[p[r],c[r][v]],i=!i,v=!1);var w=d.length;return 0!==w&&d[w-1][0]<p[f-1]&&(d.push(o),g.push(o[0]),l.push(o[1])),{values:d,xData:g,yData:l}}},r.defaultOptions=(0,e.merge)(u.defaultOptions,{params:{index:void 0,period:void 0,lowIndex:2,highIndex:1,deviation:1}}),r}(u);(0,e.extend)(h.prototype,{nameComponents:["deviation"],nameSuffixes:["%"],nameBase:"Zig Zag"}),s().registerSeriesType("zigzag",h);var p=r()}(),i=i.default});

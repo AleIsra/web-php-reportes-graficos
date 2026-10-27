@@ -1,0 +1,14 @@
+!/**
+ * Highstock JS v13.1.1 (2026-09-20)
+ * @module highcharts/indicators/rsi
+ * @requires highcharts
+ * @requires highcharts/modules/stock
+ *
+ * Indicator series type for Highcharts Stock
+ *
+ * (c) 2010-2026 Highsoft AS
+ * Author: Paweł Fus
+ *
+ * A commercial license may be required depending on use,
+ * see www.highcharts.com/license
+ */function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e(t._Highcharts.SeriesRegistry,t._Highcharts):"function"==typeof define&&define.amd?define("highcharts/indicators/rsi",["highcharts/highcharts"],function(t){return e(t.SeriesRegistry,t)}):"object"==typeof exports?exports["highcharts/indicators/rsi"]=e(t._Highcharts.SeriesRegistry,t._Highcharts):t.Highcharts=e(t.Highcharts.SeriesRegistry,t.Highcharts)}("u"<typeof window?this:window,function(t,e){var r={512:function(e){"use strict";e.exports=t},944:function(t){"use strict";t.exports=e}},n={};function o(t){var e=n[t];if(void 0!==e)return e.exports;var i=n[t]={exports:{}};return r[t](i,i.exports,o),i.exports}o.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return o.d(e,{a:e}),e},o.d=function(t,e){for(var r in e)o.o(e,r)&&!o.o(t,r)&&Object.defineProperty(t,r,{enumerable:!0,get:e[r]})},o.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)};var i={};return!function(){"use strict";o.d(i,{default:function(){return p}});var t,e=o(944),r=o.n(e),n=o(512),s=o.n(n),a=(t=function(e,r){return(t=Object.setPrototypeOf||({__proto__:[]})instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var r in e)e.hasOwnProperty(r)&&(t[r]=e[r])})(e,r)},function(e,r){function n(){this.constructor=e}t(e,r),e.prototype=null===r?Object.create(r):(n.prototype=r.prototype,new n)}),u=s().seriesTypes.sma;function c(t,e){return parseFloat(t.toFixed(e))}var f=function(t){function r(){return null!==t&&t.apply(this,arguments)||this}return a(r,t),r.prototype.getValues=function(t,r){var n,o,i,s,a,u,f=r.period,p=t.xData,h=t.yData,d=h?h.length:0,l=r.decimals,y=[],g=[],x=[],_=0,v=0,m=r.index,b=1;if(!(p.length<f)){for((0,e.isNumber)(h[0])?u=h:(m=Math.min(m,h[0].length-1),u=h.map(function(t){return t[m]}));b<f;)(o=c(u[b]-u[b-1],l))>0?_+=o:v+=Math.abs(o),b++;for(i=c(_/(f-1),l),s=c(v/(f-1),l),a=b;a<d;a++)(o=c(u[a]-u[a-1],l))>0?(_=o,v=0):(_=0,v=Math.abs(o)),i=c((i*(f-1)+_)/f,l),n=0===(s=c((s*(f-1)+v)/f,l))?100:0===i?0:c(100-100/(1+i/s),l),y.push([p[a],n]),g.push(p[a]),x.push(n);return{values:y,xData:g,yData:x}}},r.defaultOptions=(0,e.merge)(u.defaultOptions,{params:{decimals:4,index:3}}),r}(u);s().registerSeriesType("rsi",f);var p=r()}(),i=i.default});

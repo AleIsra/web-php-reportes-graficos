@@ -1,0 +1,439 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Highcharts Example</title>
+
+		<style type="text/css">
+:root {
+    color-scheme: light dark;
+}
+body {
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        "Apple Color Emoji",
+        "Segoe UI Emoji",
+        "Segoe UI Symbol",
+        sans-serif;
+    background: var(--highcharts-background-color);
+    color: var(--highcharts-neutral-color-100);
+}
+
+.highcharts-figure,
+.highcharts-data-table table {
+    min-width: 310px;
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+#container {
+    height: 400px;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid var(--highcharts-neutral-color-10, #e6e6e6);
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: var(--highcharts-neutral-color-60, #666);
+}
+
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tbody tr:nth-child(even) {
+    background: var(--highcharts-neutral-color-3, #f7f7f7);
+}
+
+.highcharts-description {
+    background: light-dark(#f2f6f2, #323232);
+    border-radius: 0 4px 4px 0;
+    border-left: 2px solid light-dark(#1d6aff, #fff);
+    font-size: 0.8rem;
+    font-style: italic;
+    padding: 8px 16px;
+    margin: 2em 10px 1em;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #141414;
+        color: #ddd;
+    }
+    a {
+        color: #2caffe;
+    }
+}
+		</style>
+	</head>
+	<body>
+<script src="../../code/highcharts.js"></script>
+<script src="../../code/modules/data.js"></script>
+<script src="../../code/modules/drilldown.js"></script>
+<script src="../../code/modules/exporting.js"></script>
+<script src="../../code/modules/export-data.js"></script>
+<script src="../../code/modules/accessibility.js"></script>
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+        Chart showing ingredients in a granola recipe. Clicking on individual columns
+        brings up the nutritional value of that ingredient. This chart makes use of the drilldown
+        feature in Highcharts to easily switch between datasets.
+    </p>
+</figure>
+
+
+
+		<script type="text/javascript">
+// Create the chart
+Highcharts.chart('container', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Granola recipe with nutritional information'
+    },
+    subtitle: {
+        text: 'Click the columns to view nutritional information'
+    },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: [{
+        title: {
+            text: 'Percent per weight'
+        },
+        showEmpty: false
+    }, {
+        title: {
+            text: 'Grams in recipe'
+        },
+        showEmpty: false
+    }],
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: ' +
+            '<b>{point.y:.2f}%</b> of weight<br/>'
+    },
+
+    series: [
+        {
+            name: 'Ingredients',
+            colorByPoint: true,
+            tooltip: {
+                headerFormat:
+                    '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat:
+                    '<span style="color:{point.color}">{point.name}</span>: ' +
+                    '<b>{point.y:.0f} g</b> in recipe<br/>'
+            },
+            yAxis: 1,
+            data: [
+                {
+                    name: 'Rolled Oats',
+                    y: 300,
+                    drilldown: 'Rolled Oats'
+                },
+                {
+                    name: 'Maple Syrup',
+                    y: 170,
+                    drilldown: 'Maple Syrup'
+                },
+                {
+                    name: 'Flaked Almonds',
+                    y: 100,
+                    drilldown: 'Flaked Almonds'
+                },
+                {
+                    name: 'Dried Berries',
+                    y: 100,
+                    drilldown: 'Dried Berries'
+                },
+                {
+                    name: 'Sunflower Seeds',
+                    y: 50,
+                    drilldown: 'Sunflower Seeds'
+                },
+                {
+                    name: 'Sesame Seeds',
+                    y: 50,
+                    drilldown: 'Sesame Seeds'
+                },
+                {
+                    name: 'Pumpkin Seeds',
+                    y: 50,
+                    drilldown: 'Pumpkin Seeds'
+                },
+                {
+                    name: 'Coconut',
+                    y: 50,
+                    drilldown: 'Coconut'
+                },
+                {
+                    name: 'Honey',
+                    y: 42,
+                    drilldown: 'Honey'
+                },
+                {
+                    name: 'Vegetable Oil',
+                    y: 26,
+                    drilldown: 'Vegetable Oil'
+                },
+                {
+                    name: 'Vanilla Extract',
+                    y: 5,
+                    drilldown: 'Vanilla Extract'
+                }
+            ]
+        }
+    ],
+    drilldown: {
+        breadcrumbs: {
+            position: {
+                align: 'right'
+            }
+        },
+        series: [
+            {
+                name: 'Rolled Oats',
+                id: 'Rolled Oats',
+                data: [
+                    [
+                        'Carbohydrates',
+                        67.7
+                    ],
+                    [
+                        'Fat',
+                        6.52
+                    ],
+                    [
+                        'Protein',
+                        13.15
+                    ]
+                ]
+            },
+            {
+                name: 'Maple Syrup',
+                id: 'Maple Syrup',
+                data: [
+                    [
+                        'Carbohydrates',
+                        67
+                    ],
+                    [
+                        'Fat',
+                        0.06
+                    ],
+                    [
+                        'Protein',
+                        0.04
+                    ]
+                ]
+            },
+            {
+                name: 'Flaked Almonds',
+                id: 'Flaked Almonds',
+                data: [
+                    [
+                        'Carbohydrates',
+                        21.6
+                    ],
+                    [
+                        'Fat',
+                        49.9
+                    ],
+                    [
+                        'Protein',
+                        21.2
+                    ]
+                ]
+            },
+            {
+                name: 'Dried Berries',
+                id: 'Dried Berries',
+                data: [
+                    [
+                        'Carbohydrates',
+                        65
+                    ],
+                    [
+                        'Fat',
+                        1
+                    ],
+                    [
+                        'Protein',
+                        1
+                    ]
+                ]
+            },
+            {
+                name: 'Sunflower Seeds',
+                id: 'Sunflower Seeds',
+                data: [
+                    [
+                        'Carbohydrates',
+                        20
+                    ],
+                    [
+                        'Fat',
+                        51.46
+                    ],
+                    [
+                        'Protein',
+                        20.78
+                    ]
+                ]
+            },
+            {
+                name: 'Sesame Seeds',
+                id: 'Sesame Seeds',
+                data: [
+                    [
+                        'Carbohydrates',
+                        23.4
+                    ],
+                    [
+                        'Fat',
+                        49.7
+                    ],
+                    [
+                        'Protein',
+                        17.7
+                    ]
+                ]
+            },
+            {
+                name: 'Pumpkin Seeds',
+                id: 'Pumpkin Seeds',
+                data: [
+                    [
+                        'Carbohydrates',
+                        14.71
+                    ],
+                    [
+                        'Fat',
+                        49.05
+                    ],
+                    [
+                        'Protein',
+                        29.84
+                    ]
+                ]
+            },
+            {
+                name: 'Coconut',
+                id: 'Coconut',
+                data: [
+                    [
+                        'Carbohydrates',
+                        15.23
+                    ],
+                    [
+                        'Fat',
+                        33.49
+                    ],
+                    [
+                        'Protein',
+                        3.33
+                    ]
+                ]
+            },
+            {
+                name: 'Honey',
+                id: 'Honey',
+                data: [
+                    [
+                        'Carbohydrates',
+                        82
+                    ],
+                    [
+                        'Fat',
+                        0
+                    ],
+                    [
+                        'Protein',
+                        0.3
+                    ]
+                ]
+            },
+            {
+                name: 'Vegetable Oil',
+                id: 'Vegetable Oil',
+                data: [
+                    [
+                        'Carbohydrates',
+                        0
+                    ],
+                    [
+                        'Fat',
+                        96
+                    ],
+                    [
+                        'Protein',
+                        0
+                    ]
+                ]
+            },
+            {
+                name: 'Vanilla Extract',
+                id: 'Vanilla Extract',
+                data: [
+                    [
+                        'Carbohydrates',
+                        12.6
+                    ],
+                    [
+                        'Fat',
+                        0
+                    ],
+                    [
+                        'Protein',
+                        0
+                    ]
+                ]
+            }
+        ]
+    }
+});
+
+		</script>
+	</body>
+</html>

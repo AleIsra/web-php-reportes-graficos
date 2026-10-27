@@ -1,0 +1,14 @@
+!/**
+ * Highstock JS v13.1.1 (2026-09-20)
+ * @module highcharts/indicators/dema
+ * @requires highcharts
+ * @requires highcharts/modules/stock
+ *
+ * Indicator series type for Highcharts Stock
+ *
+ * (c) 2010-2026 Highsoft AS
+ * Author: Rafał Sebestjański
+ *
+ * A commercial license may be required depending on use,
+ * see www.highcharts.com/license
+ */function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e(t._Highcharts.SeriesRegistry,t._Highcharts):"function"==typeof define&&define.amd?define("highcharts/indicators/dema",["highcharts/highcharts"],function(t){return e(t.SeriesRegistry,t)}):"object"==typeof exports?exports["highcharts/indicators/dema"]=e(t._Highcharts.SeriesRegistry,t._Highcharts):t.Highcharts=e(t.Highcharts.SeriesRegistry,t.Highcharts)}("u"<typeof window?this:window,function(t,e){var r={512:function(e){"use strict";e.exports=t},944:function(t){"use strict";t.exports=e}},o={};function n(t){var e=o[t];if(void 0!==e)return e.exports;var i=o[t]={exports:{}};return r[t](i,i.exports,n),i.exports}n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,{a:e}),e},n.d=function(t,e){for(var r in e)n.o(e,r)&&!n.o(t,r)&&Object.defineProperty(t,r,{enumerable:!0,get:e[r]})},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)};var i={};return!function(){"use strict";n.d(i,{default:function(){return p}});var t,e=n(944),r=n.n(e),o=n(512),s=n.n(o),u=(t=function(e,r){return(t=Object.setPrototypeOf||({__proto__:[]})instanceof Array&&function(t,e){t.__proto__=e}||function(t,e){for(var r in e)e.hasOwnProperty(r)&&(t[r]=e[r])})(e,r)},function(e,r){function o(){this.constructor=e}t(e,r),e.prototype=null===r?Object.create(r):(o.prototype=r.prototype,new o)}),a=s().seriesTypes.ema,c=function(t){function r(){return null!==t&&t.apply(this,arguments)||this}return u(r,t),r.prototype.getEMA=function(e,r,o,n,i,s){return t.prototype.calculateEma.call(this,s||[],e,void 0===i?1:i,this.EMApercent,r,void 0===n?-1:n,o)},r.prototype.getValues=function(r,o){var n,i,s,u,a,c=o.period,p=[],f=2*c,h=r.xData,d=r.yData,y=d?d.length:0,l=[],g=[],v=[],x=0,_=0,m=-1,O=0;if(this.EMApercent=2/(c+1),!(y<2*c-1)){for((0,e.isArray)(d[0])&&(m=o.index?o.index:0),O=(x=t.prototype.accumulatePeriodPoints.call(this,c,m,d))/c,x=0,u=c;u<y+2;u++)u<y+1&&(_=this.getEMA(d,i,O,m,u)[1],p.push(_)),i=_,u<f?x+=_:(u===f&&(O=x/c),_=p[u-c-1],n=this.getEMA([_],s,O)[1],a=[h[u-2],(0,e.correctFloat)(2*_-n)],l.push(a),g.push(a[0]),v.push(a[1]),s=n);return{values:l,xData:g,yData:v}}},r.defaultOptions=(0,e.merge)(a.defaultOptions),r}(a);s().registerSeriesType("dema",c);var p=r()}(),i=i.default});

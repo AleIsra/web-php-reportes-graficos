@@ -1,0 +1,14 @@
+!/**
+ * Highstock JS v13.1.1 (2026-09-20)
+ * @module highcharts/indicators/atr
+ * @requires highcharts
+ * @requires highcharts/modules/stock
+ *
+ * Indicator series type for Highcharts Stock
+ *
+ * (c) 2010-2026 Highsoft AS
+ * Author: Sebastian Bochan
+ *
+ * A commercial license may be required depending on use,
+ * see www.highcharts.com/license
+ */function(t,r){"object"==typeof exports&&"object"==typeof module?module.exports=r(t._Highcharts.SeriesRegistry,t._Highcharts):"function"==typeof define&&define.amd?define("highcharts/indicators/atr",["highcharts/highcharts"],function(t){return r(t.SeriesRegistry,t)}):"object"==typeof exports?exports["highcharts/indicators/atr"]=r(t._Highcharts.SeriesRegistry,t._Highcharts):t.Highcharts=r(t.Highcharts.SeriesRegistry,t.Highcharts)}("u"<typeof window?this:window,function(t,r){var e={512:function(r){"use strict";r.exports=t},944:function(t){"use strict";t.exports=r}},n={};function o(t){var r=n[t];if(void 0!==r)return r.exports;var i=n[t]={exports:{}};return e[t](i,i.exports,o),i.exports}o.n=function(t){var r=t&&t.__esModule?function(){return t.default}:function(){return t};return o.d(r,{a:r}),r},o.d=function(t,r){for(var e in r)o.o(r,e)&&!o.o(t,e)&&Object.defineProperty(t,e,{enumerable:!0,get:r[e]})},o.o=function(t,r){return Object.prototype.hasOwnProperty.call(t,r)};var i={};return!function(){"use strict";o.d(i,{default:function(){return f}});var t,r=o(944),e=o.n(r),n=o(512),s=o.n(n),a=(t=function(r,e){return(t=Object.setPrototypeOf||({__proto__:[]})instanceof Array&&function(t,r){t.__proto__=r}||function(t,r){for(var e in r)r.hasOwnProperty(e)&&(t[e]=r[e])})(r,e)},function(r,e){function n(){this.constructor=r}t(r,e),r.prototype=null===e?Object.create(e):(n.prototype=e.prototype,new n)}),u=s().seriesTypes.sma;function c(t,r){return Math.max(t[1]-t[2],void 0===r?0:Math.abs(t[1]-r[3]),void 0===r?0:Math.abs(t[2]-r[3]))}var p=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return a(e,t),e.prototype.getValues=function(t,e){var n,o,i,s,a=e.period,u=t.xData,p=t.yData,f=p?p.length:0,h=[[u[0],p[0]]],d=[],y=[],g=[],l=0,v=1,x=0;if(!(u.length<=a)&&(0,r.isArray)(p[0])&&4===p[0].length){for(s=1;s<=f;s++)(!function(t,r,e,n){var o=r[n],i=e[n];t.push([o,i])}(h,u,p,s),a<v)?(n=s,o=l,l=(i=[u[n-1],(o*(a-1)+c(p[n-1],p[n-2]))/a])[1],d.push(i),y.push(i[0]),g.push(i[1])):(a===v?(l=x/(s-1),d.push([u[s-1],l]),y.push(u[s-1]),g.push(l)):x+=c(p[s-1],p[s-2]),v++);return{values:d,xData:y,yData:g}}},e.defaultOptions=(0,r.merge)(u.defaultOptions,{params:{index:void 0}}),e}(u);s().registerSeriesType("atr",p);var f=e()}(),i=i.default});
